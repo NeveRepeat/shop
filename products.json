@@ -1,0 +1,166 @@
+{
+    "murder-mystery-2": [
+        {
+            "id": "mm2-godly-1",
+            "name": "Нож Eternal IV",
+            "description": "Редкий нож категории Godly",
+            "price": 199,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "murder-mystery-2"
+        },
+        {
+            "id": "mm2-godly-2",
+            "name": "Пистолет Luger",
+            "description": "Легендарный пистолет категории Godly",
+            "price": 299,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "murder-mystery-2"
+        }
+    ],
+    "adopt-me": [
+        {
+            "id": "adopt-pet-1",
+            "name": "Легендарный Frost Dragon",
+            "description": "Редкий питомец, которого больше нельзя получить в игре",
+            "price": 499,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "adopt-me"
+        },
+        {
+            "id": "adopt-pet-2",
+            "name": "Shadow Dragon",
+            "description": "Один из самых редких питомцев в игре",
+            "price": 799,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "adopt-me"
+        }
+    ],
+    "blox-fruits": [
+        {
+            "id": "blox-fruit-1",
+            "name": "Dragon Fruit",
+            "description": "Редкий фрукт с высоким уроном",
+            "price": 149,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "blox-fruits"
+        },
+        {
+            "id": "blox-fruit-2",
+            "name": "Dark Blade",
+            "description": "Легендарное оружие для PvP",
+            "price": 299,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "blox-fruits"
+        }
+    ],
+    "pets-go": [
+        {
+            "id": "pets-go-1",
+            "name": "Legendary Pet Box",
+            "description": "Коробка с гарантированным легендарным питомцем",
+            "price": 199,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "pets-go"
+        },
+        {
+            "id": "pets-go-2",
+            "name": "Rainbow Pet Potion",
+            "description": "Зелье для создания радужного питомца",
+            "price": 149,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "pets-go"
+        }
+    ],
+    "pet-simulator-99": [
+        {
+            "id": "pet-sim-1",
+            "name": "Huge Cat",
+            "description": "Огромный питомец с максимальными характеристиками",
+            "price": 399,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "pet-simulator-99"
+        },
+        {
+            "id": "pet-sim-2",
+            "name": "Golden Lucky Block",
+            "description": "Золотой блок удачи с редкими питомцами",
+            "price": 249,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "pet-simulator-99"
+        }
+    ],
+    "robux": [
+        {
+            "id": "robux-1",
+            "name": "400 Robux",
+            "description": "Пополнение баланса Robux",
+            "price": 299,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "robux"
+        },
+        {
+            "id": "robux-2",
+            "name": "800 Robux",
+            "description": "Пополнение баланса Robux",
+            "price": 549,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "robux"
+        }
+    ],
+    "promocodes": [
+        {
+            "id": "promo-1",
+            "name": "VIP код на 7 дней",
+            "description": "Код для получения VIP статуса в игре",
+            "price": 99,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "promocodes"
+        },
+        {
+            "id": "promo-2",
+            "name": "Премиум код на 30 дней",
+            "description": "Код для получения премиум возможностей",
+            "price": 299,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "promocodes"
+        }
+    ],
+    "toilet-tower-defense": [
+        {
+            "id": "ttd-1",
+            "name": "Legendary Tower Pack",
+            "description": "Набор легендарных башен для защиты",
+            "price": 199,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "toilet-tower-defense"
+        },
+        {
+            "id": "ttd-2",
+            "name": "VIP Tower Skin",
+            "description": "Эксклюзивный скин для башен",
+            "price": 149,
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "category": "toilet-tower-defense"
+        }
+    ],
+    "products": [
+        {
+            "id": 1,
+            "name": "Ursa Baby Pro Gunmetal Espresso",
+            "price": 140,
+            "category": "Одноразки",
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "popularity": 10,
+            "in_stock": true
+        },
+        {
+            "id": 2,
+            "name": "Ursa Nano Pro 2 Classic Brown",
+            "price": 150,
+            "category": "Одноразки",
+            "image": "https://i2.wp.com/vapesourcing.com/images/202008/lolly_puff_disposable_bottom_view.jpg",
+            "popularity": 8,
+            "in_stock": true
+        }
+    ]
+}

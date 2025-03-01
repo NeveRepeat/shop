@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VAPE ROOM | ELFBAR ВРОЦЛАВ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .checkout-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2481cc;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .checkout-button:hover {
+            background-color: #1a6298;
+        }
+
+        .checkout-button:active {
+            background-color: #145180;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        /* Стили для колеса и кнопки */
+        #wheel-app {
+            position: relative;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .wheel {
+            width: 100%;
+            max-width: 380px;
+            transition: transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+        }
+
+        .marker {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            z-index: 2;
+        }
+
+        #wheel-app .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #2481cc;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #wheel-app .button:hover {
+            background-color: #1a6298;
+            transform: scale(1.05);
+        }
+
+        #wheel-app .button:active {
+            transform: scale(0.95);
+        }
+
+        #wheel-app .button[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: #999;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <canvas id="starCanvas"></canvas>
+    <div class="app">
+        <header class="header-blur">
+            <div class="header-content">
+                <button class="nav-btn home-btn" id="homeButton">
+                    <i class="material-icons">home</i>
+                </button>
+                <div class="search-container">
+                    <i class="material-icons search-icon">search</i>
+                    <input type="search" class="search-input" placeholder="Поиск товаров...">
+                </div>
+                <button class="nav-btn cart-btn" id="cartButton">
+                    <i class="material-icons">shopping_cart</i>
+                    <span class="cart-counter">0</span>
+                </button>
+            </div>
+        </header>
+
+        <nav class="categories-nav">
+            <div class="categories-scroll">
+                <div class="categories">
+                    <button class="category-btn active" data-category="murder-mystery-2">
+                        <i class="material-icons">colorize</i>
+                        <span>Murder Mystery 2</span>
+                    </button>
+                    <button class="category-btn" data-category="adopt-me">
+                        <i class="material-icons">pets</i>
+                        <span>Adopt Me</span>
+                    </button>
+                    <button class="category-btn" data-category="blox-fruits">
+                        <i class="material-icons">local_pizza</i>
+                        <span>Blox Fruits</span>
+                    </button>
+                    <button class="category-btn" data-category="pets-go">
+                        <i class="material-icons">pets</i>
+                        <span>Pets Go</span>
+                    </button>
+                    <button class="category-btn" data-category="pet-simulator-99">
+                        <i class="material-icons">pets</i>
+                        <span>Pet Simulator 99</span>
+                    </button>
+                    <button class="category-btn" data-category="robux">
+                        <i class="material-icons">attach_money</i>
+                        <span>Робуксы</span>
+                    </button>
+                    <button class="category-btn" data-category="promocodes">
+                        <i class="material-icons">card_giftcard</i>
+                        <span>Промокоды</span>
+                    </button>
+                    <button class="category-btn" data-category="toilet-tower-defense">
+                        <i class="material-icons">accessible</i>
+                        <span>Toilet Tower Defense</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-section">
+            <div class="filters-bar">
+                <div class="active-filters">
+                    <span class="filter-label">Сортировка:</span>
+                    <select class="sort-select">
+                        <option value="popular">По популярности</option>
+                        <option value="price_asc">От дешевых к дорогим</option>
+                        <option value="price_desc">От дорогих к дешевым</option>
+                    </select>
+                </div>
+                <button class="view-toggle">
+                    <i class="material-icons">grid_view</i>
+                </button>
+            </div>
+
+            <main class="products-grid">
+                <!-- Продукты будут добавлены через JavaScript -->
+            </main>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <i class="material-icons notification-icon"></i>
+        <span class="notification-message"></span>
+    </div>
+
+    <script src="wheel.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
