@@ -444,7 +444,7 @@ function sendOrderConfirmationToUser(orderData) {
         return;
     }
 
-    const botToken = '5037002755:AAH0SdUBgoGG27O3Gm6BS31cOKE286e3Oqo';
+    const botToken = '7759823591:AAF0Pr2yF3C1mKHnihGkJXTZEXFcMujrGWI';
     const userId = tg.initDataUnsafe?.user?.id;
 
     if (!userId) {
@@ -515,7 +515,7 @@ function sendOrderDetailsToAdmin(orderData) {
     }
 
     const adminChatId = '2122584931';
-    const botToken = '5037002755:AAH0SdUBgoGG27O3Gm6BS31cOKE286e3Oqo';
+    const botToken = '7759823591:AAF0Pr2yF3C1mKHnihGkJXTZEXFcMujrGWI';
     
     // Создаем читаемый текст сообщения
     const messageText = `🆕 Новый заказ!\n\n` +
