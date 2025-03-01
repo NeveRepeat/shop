@@ -18,7 +18,7 @@ from aiogram import Router
 load_dotenv()
 
 # Инициализация бота и диспетчера
-API_TOKEN = '5037002755:AAH0SdUBgoGG27O3Gm6BS31cOKE286e3Oqo'
+API_TOKEN = '7759823591:AAF0Pr2yF3C1mKHnihGkJXTZEXFcMujrGWI'
 ADMIN_ID = '2122584931'
 
 # URL вашего веб-приложения
