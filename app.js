@@ -185,10 +185,10 @@ async function filterAndDisplayProducts() {
     // Сортировка
     if (sortValue) {
         filteredProducts.sort((a, b) => {
-            if (sortValue === 'price-asc') return a.price - b.price;
-            if (sortValue === 'price-desc') return b.price - a.price;
-            if (sortValue === 'name-asc') return a.name.localeCompare(b.name);
-            if (sortValue === 'name-desc') return b.name.localeCompare(a.name);
+            if (sortValue === 'price_asc') return a.price - b.price;
+            if (sortValue === 'price_desc') return b.price - a.price;
+            if (sortValue === 'name_asc') return a.name.localeCompare(b.name);
+            if (sortValue === 'name_desc') return b.name.localeCompare(a.name);
             return 0;
         });
     }
