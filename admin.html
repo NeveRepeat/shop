@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NVRT | АДМИН ПАНЕЛЬ</title>
+    <title>VAPE ROOM | ELFBAR ВРОЦЛАВ - Админ панель</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
@@ -216,7 +216,7 @@
 
     <script>
         // GitHub API конфигурация
-        const REPO_OWNER = 'NeveRepeat';
+        const REPO_OWNER = 'neverepeat';
         const REPO_NAME = 'shop';
         const FILE_PATH = 'products.json';
         let GITHUB_TOKEN = '';
@@ -278,29 +278,25 @@
 
             showLoading();
 
-            // Группируем товары по категориям
-            const categorizedProducts = {};
-            products.forEach(product => {
-                const category = product.category;
-                if (!categorizedProducts[category]) {
-                    categorizedProducts[category] = [];
-                }
-                // Создаем копию товара без поля category
-                const { category: _, ...productWithoutCategory } = product;
-                categorizedProducts[category].push(productWithoutCategory);
-            });
-
             try {
                 // Получаем текущий SHA файла
-                const currentFile = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+                const currentFileResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`,
                         'Accept': 'application/vnd.github.v3+json'
                     }
-                }).then(res => res.json());
+                });
+
+                if (!currentFileResponse.ok) {
+                    throw new Error('Не удалось получить текущий файл');
+                }
+
+                const currentFile = await currentFileResponse.json();
+                const jsonString = JSON.stringify(products, null, 2);
+                const encodedContent = utf8_to_b64(jsonString);
 
                 // Обновляем файл
-                const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+                const updateResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`,
@@ -308,21 +304,22 @@
                     },
                     body: JSON.stringify({
                         message: 'Update products',
-                        content: btoa(JSON.stringify(categorizedProducts, null, 2)),
+                        content: encodedContent,
                         sha: currentFile.sha
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error('Failed to save products');
+                if (!updateResponse.ok) {
+                    const errorData = await updateResponse.json();
+                    throw new Error(`Ошибка сохранения: ${errorData.message || 'Неизвестная ошибка'}`);
                 }
 
                 hideLoading();
                 alert('Товары успешно сохранены');
             } catch (error) {
-                console.error('Error saving products:', error);
                 hideLoading();
-                alert('Ошибка при сохранении товаров');
+                console.error('Ошибка при сохранении:', error);
+                alert(`Ошибка при сохранении товаров: ${error.message}`);
             }
         }
 
@@ -335,12 +332,26 @@
             document.getElementById('loading').style.display = 'none';
         }
 
-        // Проверка доступности изображения
+        // Функция для кодирования UTF-8 строки в base64
+        function utf8_to_b64(str) {
+            try {
+                const encoder = new TextEncoder();
+                const bytes = encoder.encode(str);
+                const binaryString = Array.from(bytes).map(byte => String.fromCharCode(byte)).join('');
+                return btoa(binaryString);
+            } catch (error) {
+                console.error('Ошибка при кодировании:', error);
+                throw new Error('Ошибка при кодировании данных');
+            }
+        }
+
+        // Функция для проверки изображения с учетом CORS
         async function checkImageUrl(url) {
             try {
-                const response = await fetch(url, { method: 'HEAD' });
-                return response.ok;
+                const response = await fetch(url, { mode: 'no-cors' });
+                return true;
             } catch (error) {
+                console.error('Ошибка при проверке изображения:', error);
                 return false;
             }
         }
