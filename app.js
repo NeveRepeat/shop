@@ -514,7 +514,7 @@ function sendOrderDetailsToAdmin(orderData) {
         return;
     }
 
-    const adminChatId = '2122584931';
+    const adminChatId = '7371729331';
     const botToken = '7759823591:AAF0Pr2yF3C1mKHnihGkJXTZEXFcMujrGWI';
     
     // Создаем читаемый текст сообщения
