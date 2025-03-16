@@ -56,7 +56,7 @@ tg.MainButton.color = '#8774e1';
 
 // Загрузка товаров с GitHub
 
-async function getProducts() {
+async function getProducts(category = 'murder-mystery-2') {
     try {
         console.log('Початок завантаження товарів...');
         const timestamp = new Date().getTime();
@@ -66,7 +66,12 @@ async function getProducts() {
         }
         const data = await response.json();
         console.log('Товари завантажені успішно:', data);
-        return data || []; // Возвращаем сам массив, так как данные находятся в корне JSON
+        
+        // Фильтруем товары по категории
+        if (category && category !== 'all') {
+            return data.filter(product => product.category === category);
+        }
+        return data;
     } catch (error) {
         console.error('Помилка завантаження товарів:', error);
         return [];
@@ -178,8 +183,7 @@ async function filterAndDisplayProducts() {
     // Фильтрация по поисковому запросу
     if (searchTerm) {
         filteredProducts = filteredProducts.filter(product =>
-            product.name.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
+            product.name.toLowerCase().includes(searchTerm)
         );
     }
 
