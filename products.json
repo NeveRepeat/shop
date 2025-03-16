@@ -1,1 +1,9 @@
-
+[
+  {
+    "id": 1,
+    "name": "Frost",
+    "price": 1111,
+    "category": "adopt-me",
+    "image": "https://adoptme.fandom.com/wiki/Frost_Dragon?file=Frost_Dragon_Pet.png"
+  }
+]
