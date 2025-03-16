@@ -59,15 +59,26 @@ async function getProducts(category = 'murder-mystery-2') {
     try {
         console.log('Начало загрузки товаров...');
         const timestamp = new Date().getTime();
-        const response = await fetch(`https://neverepeat.github.io/products.json?t=${timestamp}`);
+        const response = await fetch(`https://raw.githubusercontent.com/neverepeat/232323/main/products.json?t=${timestamp}`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        });
+        
         if (!response.ok) {
             throw new Error(`HTTP ошибка! статус: ${response.status}`);
         }
-        const data = await response.json();
+        
+        const text = await response.text();
+        const data = JSON.parse(text);
+        
         console.log('Товары успешно загружены для категории:', category);
         return data[category] || [];
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
+        showNotification('Ошибка при загрузке товаров. Пожалуйста, попробуйте позже.');
         return [];
     }
 }
