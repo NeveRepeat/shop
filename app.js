@@ -54,17 +54,28 @@ document.addEventListener('DOMContentLoaded', () => {
 tg.MainButton.textColor = '#FFFFFF';
 tg.MainButton.color = '#8774e1';
 
-// Загрузка товаров с GitHub
+// Загрузка товаров с локального файла
 async function getProducts(category = 'murder-mystery-2') {
     try {
         console.log('Начало загрузки товаров...');
         const timestamp = new Date().getTime();
-        const response = await fetch(`https://raw.githubusercontent.com/neverepeat/shop/main/products.json?t=${timestamp}`);
+        const response = await fetch(`/products.json?t=${timestamp}`);
         if (!response.ok) {
             throw new Error(`HTTP ошибка! статус: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Товары успешно загружены для категории:', category);
+        console.log('Загруженные данные:', data);
+        // Если данные в виде массива, преобразуем их в нужный формат
+        if (Array.isArray(data)) {
+            const categorizedData = {};
+            data.forEach(product => {
+                if (!categorizedData[product.category]) {
+                    categorizedData[product.category] = [];
+                }
+                categorizedData[product.category].push(product);
+            });
+            return categorizedData[category] || [];
+        }
         return data[category] || [];
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
