@@ -55,30 +55,20 @@ tg.MainButton.textColor = '#FFFFFF';
 tg.MainButton.color = '#8774e1';
 
 // Загрузка товаров с GitHub
-async function getProducts(category = 'murder-mystery-2') {
+
+async function getProducts() {
     try {
-        console.log('Начало загрузки товаров...');
+        console.log('Початок завантаження товарів...');
         const timestamp = new Date().getTime();
-        const response = await fetch(`https://raw.githubusercontent.com/neverepeat/232323/main/products.json?t=${timestamp}`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        });
-        
+        const response = await fetch(`https://raw.githubusercontent.com/neverepeat/shop/main/products.json?t=${timestamp}`);
         if (!response.ok) {
-            throw new Error(`HTTP ошибка! статус: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
-        const text = await response.text();
-        const data = JSON.parse(text);
-        
-        console.log('Товары успешно загружены для категории:', category);
-        return data[category] || [];
+        const data = await response.json();
+        console.log('Товари завантажені успішно:', data);
+        return data || []; // Возвращаем сам массив, так как данные находятся в корне JSON
     } catch (error) {
-        console.error('Ошибка загрузки товаров:', error);
-        showNotification('Ошибка при загрузке товаров. Пожалуйста, попробуйте позже.');
+        console.error('Помилка завантаження товарів:', error);
         return [];
     }
 }
