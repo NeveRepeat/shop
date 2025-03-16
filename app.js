@@ -59,7 +59,7 @@ async function getProducts(category = 'murder-mystery-2') {
     try {
         console.log('Начало загрузки товаров...');
         const timestamp = new Date().getTime();
-        const response = await fetch(`https://raw.githubusercontent.com/neverepeat/shop/main/products.json?t=${timestamp}`);
+        const response = await fetch(`https://neverepeat.github.io/products.json?t=${timestamp}`);
         if (!response.ok) {
             throw new Error(`HTTP ошибка! статус: ${response.status}`);
         }
