@@ -58,22 +58,24 @@ tg.MainButton.color = '#8774e1';
 
 async function getProducts(category = 'murder-mystery-2') {
     try {
-        console.log('Початок завантаження товарів...');
+        console.log('Началась загрузка товаров для категории:', category);
         const timestamp = new Date().getTime();
         const response = await fetch(`https://raw.githubusercontent.com/neverepeat/shop/main/products.json?t=${timestamp}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Товари завантажені успішно:', data);
+        console.log('Все загруженные товары:', data);
         
-        // Фильтруем товары по категории
+        // Фильтруем товары по категории, если она указана
         if (category && category !== 'all') {
-            return data.filter(product => product.category === category);
+            const filteredProducts = data.filter(product => product.category === category);
+            console.log('Отфильтрованные товары:', filteredProducts);
+            return filteredProducts;
         }
         return data;
     } catch (error) {
-        console.error('Помилка завантаження товарів:', error);
+        console.error('Ошибка загрузки товаров:', error);
         return [];
     }
 }
@@ -1013,7 +1015,7 @@ function displayProducts(productsToShow) {
 
     productsGrid.innerHTML = '';
     
-    if (productsToShow.length === 0) {
+    if (!productsToShow || productsToShow.length === 0) {
         productsGrid.innerHTML = '<div class="no-products">Товары не найдены</div>';
         return;
     }
