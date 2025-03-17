@@ -319,28 +319,646 @@ function showCart() {
 
 // Добавление в корзину
 function addToCart(product) {
+    console.log('Добавление товара в корзину:', product);
+    
+    if (!product || !product.id) {
+        console.error('Попытка добавить некорректный товар:', product);
+        showNotification('Ошибка при добавлении товара');
+        return;
+    }
+
+    // Инициализируем корзину, если она не существует
+    if (!Array.isArray(cart)) {
+        cart = [];
+    }
+
     const existingProduct = cart.find(item => item.id === product.id);
     if (existingProduct) {
-        existingProduct.quantity += 1;
+        existingProduct.quantity = (existingProduct.quantity || 0) + 1;
     } else {
-        cart.push({...product, quantity: 1});
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image || 'placeholder.png',
+            quantity: 1
+        });
     }
+
     saveCart();
     updateCartCounter();
     showNotification('Товар добавлен в корзину');
-    showCart();
 }
 
-// Обновление лічильника корзины
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartCounter();
+}
+
+function clearCart() {
+    cart = [];
+    saveCart();
+    updateCartCounter();
+}
+
 function updateCartCounter() {
     const cartCounter = document.querySelector('.cart-counter');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     
     if (cartCounter) {
         cartCounter.textContent = totalItems;
         cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
     }
 }
+
+window.addEventListener('load', () => {
+    loadCart();
+    updateCartCounter();
+});
+
+// Массив призов для колеса фортуны
+const prizes = [
+    {
+        text: "Ничего",
+        probability: 45,
+        type: "nothing"
+    },
+    {
+        text: "Скидка 25₽ при заказе от 250₽",
+        probability: 5,
+        type: "discount",
+        amount: 25,
+        minOrder: 250
+    },
+    {
+        text: "Бесплатный заказ до 100₽",
+        probability: 0,
+        type: "free",
+        maxAmount: 100
+    },
+    {
+        text: "Ничего",
+        probability: 48,
+        type: "nothing"
+    },
+    {
+        text: "Скидка 5₽ при заказе от 50₽",
+        probability: 2,
+        type: "discount",
+        amount: 5,
+        minOrder: 50
+    },
+    {
+        text: "Бесплатный заказ до 300₽",
+        probability: 0,
+        type: "free",
+        maxAmount: 300
+    }
+];
+
+// Функция отображения товаров
+function displayProducts(productsToShow) {
+    const productsGrid = document.querySelector('.products-grid');
+    if (!productsGrid) return;
+
+    productsGrid.innerHTML = '';
+    
+    if (!productsToShow || productsToShow.length === 0) {
+        productsGrid.innerHTML = '<div class="no-products">Товары не найдены</div>';
+        return;
+    }
+
+    productsToShow.forEach(product => {
+        // Проверяем наличие всех необходимых полей
+        if (!product || !product.name || !product.price) {
+            console.error('Некорректные данные товара:', product);
+            return;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        
+        // Используем значения по умолчанию, если какие-то поля отсутствуют
+        const productName = product.name || 'Без названия';
+        const productPrice = product.price || 0;
+        
+        card.innerHTML = `
+            <div class="product-image">
+                <div class="image-placeholder">
+                    <span class="material-icons">image</span>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">${productName}</h3>
+                <div class="product-footer">
+                    <span class="product-price">${productPrice}₽</span>
+                    <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+                        <i class="material-icons">add_shopping_cart</i>
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Если есть изображение, пробуем его загрузить
+        if (product.image) {
+            const img = new Image();
+            img.onload = function() {
+                const imageContainer = card.querySelector('.product-image');
+                imageContainer.innerHTML = '';
+                imageContainer.appendChild(img);
+            };
+            img.onerror = function() {
+                console.log('Ошибка загрузки изображения для товара:', productName);
+            };
+            img.src = product.image;
+            img.alt = productName;
+        }
+
+        productsGrid.appendChild(card);
+    });
+}
+
+// Добавляем стили для заглушки изображения
+const imageStyles = document.createElement('style');
+imageStyles.textContent = `
+    .product-image {
+        width: 100%;
+        height: 200px;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        background: #f0f0f0;
+        color: #999;
+    }
+
+    .image-placeholder .material-icons {
+        font-size: 48px;
+        opacity: 0.5;
+    }
+`;
+document.head.appendChild(imageStyles);
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    // Инициализируем корзину
+    cart = loadCart();
+    updateCartCounter();
+
+    // Добавляем обработчики для кнопок категорий
+    document.querySelectorAll('.category-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            
+            const category = button.dataset.category;
+            console.log('Выбрана категория:', category);
+            
+            getProducts(category).then(products => {
+                console.log('Загруженные товары:', products);
+                displayProducts(products);
+            });
+        });
+    });
+
+    // Загружаем начальные товары
+    getProducts('murder-mystery-2').then(products => {
+        console.log('Начальные товары:', products);
+        displayProducts(products);
+    });
+});
+
+// Функция для скрытия всех контейнеров
+function hideAllContainers() {
+    document.querySelectorAll('.checkout-container, .payment-container').forEach(container => container.remove());
+    document.querySelector('.app').style.display = 'none';
+    document.querySelector('.cart-container')?.remove();
+    document.querySelector('.catalog-container')?.remove();
+    document.querySelector('.account-container')?.remove();
+    document.querySelector('.product-details-container')?.remove();
+    document.querySelector('.wheel-container')?.remove();
+}
+
+// Функции для страниц
+function showHome() {
+    hideAllContainers();
+    document.querySelector('.app').style.display = 'block';
+    currentCategory = 'Murder Mystery 2';
+    filterAndDisplayProducts();
+}
+
+function showAccount() {
+    hideAllContainers();
+    
+    let accountContainer = document.querySelector('.account-container');
+    if (!accountContainer) {
+        accountContainer = document.createElement('div');
+        accountContainer.className = 'account-container';
+        accountContainer.innerHTML = `
+            <div class="account-header">
+                <div class="account-avatar">
+                    <i class="material-icons">account_circle</i>
+                </div>
+                <h2>Аккаунт</h2>
+            </div>
+            <div class="account-menu">
+                <div class="account-menu-item" data-action="orders">
+                    <i class="material-icons">shopping_bag</i>
+                    <span>Мои заказы</span>
+                    <i class="material-icons">chevron_right</i>
+                </div>
+                <div class="account-menu-item" data-action="support">
+                    <i class="material-icons">support_agent</i>
+                    <span>Поддержка</span>
+                    <i class="material-icons">chevron_right</i>
+                </div>
+            </div>
+        `;
+        
+        // Добавляем обработчики для пунктов меню
+        accountContainer.querySelectorAll('.account-menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                switch (item.dataset.action) {
+                    case 'orders':
+                        showOrders();
+                        break;
+                    case 'support':
+                        tg.openTelegramLink('https://t.me/neverepeatmanager');
+                        break;
+                    case 'about':
+                        // Отправляем callback для показа информации о магазине
+                        fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                callback_query_id: tg.initDataUnsafe?.query_id,
+                                data: 'about_us'
+                            })
+                        });
+                        Telegram.WebApp.close();
+                        break;
+                }
+            });
+        });
+        
+        document.body.appendChild(accountContainer);
+    }
+    
+    accountContainer.style.display = 'block';
+}
+
+function showOrders() {
+    showNotification('История заказов недоступна');
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 2000);
+}
+
+function initStarCanvas() {
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 100;
+    const starSpeed = 0.05;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function Star(x, y, radius, speed) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.speed = speed;
+
+        this.draw = function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+        };
+
+        this.update = function() {
+            this.y += this.speed;
+            if (this.y > canvas.height) {
+                this.y = 0;
+                this.x = Math.random() * canvas.width;
+            }
+            this.draw();
+        };
+    }
+
+    function initStars() {
+        for (let i = 0; i < numStars; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * 1.5;
+            const speed = starSpeed + Math.random() * starSpeed;
+            stars.push(new Star(x, y, radius, speed));
+        }
+    }
+
+    function animateStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => star.update());
+        requestAnimationFrame(animateStars);
+    }
+
+    initStars();
+    animateStars();
+}
+
+window.addEventListener('resize', () => {
+    const canvas = document.getElementById('starCanvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+window.onload = initStarCanvas;
+
+// Обновляем функцию применения скидки при оформлении заказа
+function applyDiscount(total) {
+    const currentDiscount = localStorage.getItem('currentDiscount');
+    const discountUsed = localStorage.getItem('discountUsed') === 'true';
+    
+    if (!currentDiscount || discountUsed) {
+        return total;
+    }
+
+    // Проверяем, что сумма заказа не превышает 300₽
+    if (total > 300) {
+        showNotification('⚠️ Скидка действует только на товары до 300₽');
+        return total;
+    }
+
+    let discountPercent = 0;
+    switch (currentDiscount) {
+        case 'Скидка 20%':
+            discountPercent = 20;
+            break;
+        case 'Скидка 10%':
+            discountPercent = 10;
+            break;
+        case 'Скидка 5%':
+            discountPercent = 5;
+            break;
+        case 'Приветственный бонус':
+            discountPercent = 5; // Приветственный бонус даёт 5% скидку
+            break;
+    }
+
+    const discountAmount = (total * discountPercent) / 100;
+    localStorage.setItem('discountUsed', 'true'); // Помечаем скидку как использованную
+    
+    return total - discountAmount;
+}
+
+// Обновляем нижнюю навигацию
+function createBottomNav() {
+    const bottomNav = document.createElement('div');
+    bottomNav.className = 'bottom-nav';
+    bottomNav.innerHTML = `
+    <div class="nav-item" data-page="home">
+        <i class="material-icons">home</i>
+        <span>Главная</span>
+    </div>
+    <div class="nav-item" data-page="cart">
+        <i class="material-icons">shopping_cart</i>
+        <span>Корзина</span>
+    </div>
+    <div class="nav-item" data-page="wheel">
+        <i class="material-icons">casino</i>
+        <span>Призы</span>
+    </div>
+    <div class="nav-item" data-page="account">
+        <i class="material-icons">person</i>
+        <span>Профиль</span>
+    </div>
+    `;
+    
+    bottomNav.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const page = item.dataset.page;
+            switch(page) {
+                case 'home':
+                    showHome();
+                    break;
+                case 'cart':
+                    if (cart.length === 0) {
+                        showNotification('Корзина пуста');
+                        return;
+                    }
+                    showCart();
+                    break;
+                case 'wheel':
+                    showWheel();
+                    break;
+                case 'account':
+                    showAccount();
+                    break;
+            }
+        });
+    });
+    
+    return bottomNav;
+}
+
+// Создаем нижнюю навигацию
+const bottomNav = createBottomNav();
+document.body.appendChild(bottomNav);
+
+// Добавляем стили
+const style = document.createElement('style');
+style.textContent = `
+    .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--tg-theme-bg-color);
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 -1px 0 0 var(--tg-theme-hint-color);
+        z-index: 1000;
+    }
+
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--tg-theme-hint-color);
+        cursor: pointer;
+        transition: all 0.3s;
+        padding: 4px 8px;
+        position: relative;
+        min-width: 64px;
+    }
+
+    .nav-item.active {
+        color: var(--tg-theme-button-color);
+    }
+
+    .nav-item i {
+        font-size: 24px;
+        margin-bottom: 4px;
+    }
+
+    .nav-item span {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -2px;
+        right: 8px;
+        background: var(--tg-theme-button-color);
+        color: var(--tg-theme-button-text-color);
+        border-radius: 12px;
+        padding: 2px 6px;
+        font-size: 10px;
+        display: none;
+        min-width: 8px;
+        height: 16px;
+        text-align: center;
+        line-height: 16px;
+    }
+
+    .products-grid {
+        margin-bottom: 80px;
+        padding-bottom: 20px;
+    }
+
+    .app {
+        padding-bottom: 70px;
+    }
+`;
+document.head.appendChild(style);
+
+// Добавляем стили для отображения пустого результата
+const noProductsStyle = document.createElement('style');
+noProductsStyle.textContent = `
+    .no-products {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--tg-theme-hint-color);
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .products-grid {
+        position: relative;
+        min-height: calc(100vh - 200px);
+    }
+`;
+document.head.appendChild(noProductsStyle);
+
+function loadCart() {
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+cart = loadCart();
+
+function addToCart(product) {
+    console.log('Добавление товара в корзину:', product);
+    
+    if (!product || !product.id) {
+        console.error('Попытка добавить некорректный товар:', product);
+        showNotification('Ошибка при добавлении товара');
+        return;
+    }
+
+    // Инициализируем корзину, если она не существует
+    if (!Array.isArray(cart)) {
+        cart = [];
+    }
+
+    const existingProduct = cart.find(item => item.id === product.id);
+    if (existingProduct) {
+        existingProduct.quantity = (existingProduct.quantity || 0) + 1;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image || 'placeholder.png',
+            quantity: 1
+        });
+    }
+
+    saveCart();
+    updateCartCounter();
+    showNotification('Товар добавлен в корзину');
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartCounter();
+}
+
+function clearCart() {
+    cart = [];
+    saveCart();
+    updateCartCounter();
+}
+
+function updateCartCounter() {
+    const cartCounter = document.querySelector('.cart-counter');
+    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+    
+    if (cartCounter) {
+        cartCounter.textContent = totalItems;
+        cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+window.addEventListener('load', () => {
+    loadCart();
+    updateCartCounter();
+});
 
 // Оформление заказа
 function checkout() {
@@ -673,543 +1291,3 @@ function showWheel() {
         });
     }
 }
-
-// Обновляем функцию применения скидки при оформлении заказа
-function applyDiscount(total) {
-    const currentDiscount = localStorage.getItem('currentDiscount');
-    const discountUsed = localStorage.getItem('discountUsed') === 'true';
-    
-    if (!currentDiscount || discountUsed) {
-        return total;
-    }
-
-    // Проверяем, что сумма заказа не превышает 300₽
-    if (total > 300) {
-        showNotification('⚠️ Скидка действует только на товары до 300₽');
-        return total;
-    }
-
-    let discountPercent = 0;
-    switch (currentDiscount) {
-        case 'Скидка 20%':
-            discountPercent = 20;
-            break;
-        case 'Скидка 10%':
-            discountPercent = 10;
-            break;
-        case 'Скидка 5%':
-            discountPercent = 5;
-            break;
-        case 'Приветственный бонус':
-            discountPercent = 5; // Приветственный бонус даёт 5% скидку
-            break;
-    }
-
-    const discountAmount = (total * discountPercent) / 100;
-    localStorage.setItem('discountUsed', 'true'); // Помечаем скидку как использованную
-    
-    return total - discountAmount;
-}
-
-// Обновляем нижнюю навигацию
-function createBottomNav() {
-    const bottomNav = document.createElement('div');
-    bottomNav.className = 'bottom-nav';
-    bottomNav.innerHTML = `
-    <div class="nav-item" data-page="home">
-        <i class="material-icons">home</i>
-        <span>Главная</span>
-    </div>
-    <div class="nav-item" data-page="cart">
-        <i class="material-icons">shopping_cart</i>
-        <span>Корзина</span>
-    </div>
-    <div class="nav-item" data-page="wheel">
-        <i class="material-icons">casino</i>
-        <span>Призы</span>
-    </div>
-    <div class="nav-item" data-page="account">
-        <i class="material-icons">person</i>
-        <span>Профиль</span>
-    </div>
-    `;
-    
-    bottomNav.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const page = item.dataset.page;
-            switch(page) {
-                case 'home':
-                    showHome();
-                    break;
-                case 'cart':
-                    if (cart.length === 0) {
-                        showNotification('Корзина пуста');
-                        return;
-                    }
-                    showCart();
-                    break;
-                case 'wheel':
-                    showWheel();
-                    break;
-                case 'account':
-                    showAccount();
-                    break;
-            }
-        });
-    });
-    
-    return bottomNav;
-}
-
-// Создаем нижнюю навигацию
-const bottomNav = createBottomNav();
-document.body.appendChild(bottomNav);
-
-// Добавляем стили
-const style = document.createElement('style');
-style.textContent = `
-    .bottom-nav {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: var(--tg-theme-bg-color);
-        display: flex;
-        justify-content: space-around;
-        padding: 10px 0;
-        box-shadow: 0 -1px 0 0 var(--tg-theme-hint-color);
-        z-index: 1000;
-    }
-
-    .nav-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: var(--tg-theme-hint-color);
-        cursor: pointer;
-        transition: all 0.3s;
-        padding: 4px 8px;
-        position: relative;
-        min-width: 64px;
-    }
-
-    .nav-item.active {
-        color: var(--tg-theme-button-color);
-    }
-
-    .nav-item i {
-        font-size: 24px;
-        margin-bottom: 4px;
-    }
-
-    .nav-item span {
-        font-size: 12px;
-        text-align: center;
-    }
-
-    .cart-badge {
-        position: absolute;
-        top: -2px;
-        right: 8px;
-        background: var(--tg-theme-button-color);
-        color: var(--tg-theme-button-text-color);
-        border-radius: 12px;
-        padding: 2px 6px;
-        font-size: 10px;
-        display: none;
-        min-width: 8px;
-        height: 16px;
-        text-align: center;
-        line-height: 16px;
-    }
-
-    .products-grid {
-        margin-bottom: 80px;
-        padding-bottom: 20px;
-    }
-
-    .app {
-        padding-bottom: 70px;
-    }
-`;
-document.head.appendChild(style);
-
-// Добавляем стили для отображения пустого результата
-const noProductsStyle = document.createElement('style');
-noProductsStyle.textContent = `
-    .no-products {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: var(--tg-theme-hint-color);
-        font-size: 16px;
-        text-align: center;
-    }
-
-    .products-grid {
-        position: relative;
-        min-height: calc(100vh - 200px);
-    }
-`;
-document.head.appendChild(noProductsStyle);
-
-function loadCart() {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-}
-
-function saveCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-cart = loadCart();
-
-function addToCart(product) {
-    const existingProduct = cart.find(item => item.id === product.id);
-    if (existingProduct) {
-        existingProduct.quantity += 1;
-    } else {
-        cart.push({...product, quantity: 1});
-    }
-    saveCart();
-    updateCartCounter();
-    showNotification('Товар добавлен в корзину');
-    showCart();
-}
-
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCart();
-    updateCartCounter();
-}
-
-function clearCart() {
-    cart = [];
-    saveCart();
-    updateCartCounter();
-}
-
-function updateCartCounter() {
-    const cartCounter = document.querySelector('.cart-counter');
-    const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-    
-    if (cartCounter) {
-        cartCounter.textContent = totalItems;
-        cartCounter.style.display = totalItems > 0 ? 'flex' : 'none';
-    }
-}
-
-window.addEventListener('load', () => {
-    loadCart();
-    updateCartCounter();
-});
-
-// Массив призов для колеса фортуны
-const prizes = [
-    {
-        text: "Ничего",
-        probability: 45,
-        type: "nothing"
-    },
-    {
-        text: "Скидка 25₽ при заказе от 250₽",
-        probability: 5,
-        type: "discount",
-        amount: 25,
-        minOrder: 250
-    },
-    {
-        text: "Бесплатный заказ до 100₽",
-        probability: 0,
-        type: "free",
-        maxAmount: 100
-    },
-    {
-        text: "Ничего",
-        probability: 48,
-        type: "nothing"
-    },
-    {
-        text: "Скидка 5₽ при заказе от 50₽",
-        probability: 2,
-        type: "discount",
-        amount: 5,
-        minOrder: 50
-    },
-    {
-        text: "Бесплатный заказ до 300₽",
-        probability: 0,
-        type: "free",
-        maxAmount: 300
-    }
-];
-
-async function showProducts(category = 'murder-mystery-2') {
-    const productsGrid = document.querySelector('.products-grid');
-    productsGrid.innerHTML = '<div class="loading">Загрузка товаров...</div>';
-
-    const products = await getProducts(category);
-    
-    if (products.length === 0) {
-        productsGrid.innerHTML = '<div class="no-products">Товары не найдены</div>';
-        return;
-    }
-
-    productsGrid.innerHTML = '';
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card';
-        productCard.innerHTML = `
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='placeholder.png'">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-                <div class="product-footer">
-                    <span class="product-price">${product.price}₽</span>
-                    <button class="add-to-cart-btn" data-id="${product.id}">
-                        <i class="material-icons">add_shopping_cart</i>
-                    </button>
-                </div>
-            </div>
-        `;
-        productsGrid.appendChild(productCard);
-    });
-
-    // Добавляем обработчики для кнопок
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const productId = button.dataset.id;
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                addToCart(product);
-                saveCart(); // Сохраняем корзину после добавления товара
-            }
-        });
-    });
-}
-
-// Обработчики категорий
-document.querySelectorAll('.category-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        // Убираем активный класс у всех кнопок
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        // Добавляем активный класс нажатой кнопке
-        button.classList.add('active');
-        
-        // Показываем товары выбранной категории
-        const category = button.dataset.category;
-        showProducts(category);
-    });
-});
-
-// Функция отображения товаров
-function displayProducts(productsToShow) {
-    const productsGrid = document.querySelector('.products-grid');
-    if (!productsGrid) return;
-
-    productsGrid.innerHTML = '';
-    
-    if (!productsToShow || productsToShow.length === 0) {
-        productsGrid.innerHTML = '<div class="no-products">Товары не найдены</div>';
-        return;
-    }
-
-    productsToShow.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-            <div class="product-image">
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='placeholder.png'">
-            </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-                <div class="product-footer">
-                    <span class="product-price">${product.price}₽</span>
-                    <button class="add-to-cart-btn" data-product='${JSON.stringify(product)}'>
-                        <i class="material-icons">add_shopping_cart</i>
-                    </button>
-                </div>
-            </div>
-        `;
-
-        // Добавляем обработчик для кнопки
-        const addToCartBtn = card.querySelector('.add-to-cart-btn');
-        addToCartBtn.addEventListener('click', () => {
-            const productData = JSON.parse(addToCartBtn.dataset.product);
-            addToCart(productData);
-        });
-
-        productsGrid.appendChild(card);
-    });
-}
-
-// Функция для скрытия всех контейнеров
-function hideAllContainers() {
-    document.querySelectorAll('.checkout-container, .payment-container').forEach(container => container.remove());
-    document.querySelector('.app').style.display = 'none';
-    document.querySelector('.cart-container')?.remove();
-    document.querySelector('.catalog-container')?.remove();
-    document.querySelector('.account-container')?.remove();
-    document.querySelector('.product-details-container')?.remove();
-    document.querySelector('.wheel-container')?.remove();
-}
-
-// Функции для страниц
-function showHome() {
-    hideAllContainers();
-    document.querySelector('.app').style.display = 'block';
-    currentCategory = 'Murder Mystery 2';
-    filterAndDisplayProducts();
-}
-
-function showAccount() {
-    hideAllContainers();
-    
-    let accountContainer = document.querySelector('.account-container');
-    if (!accountContainer) {
-        accountContainer = document.createElement('div');
-        accountContainer.className = 'account-container';
-        accountContainer.innerHTML = `
-            <div class="account-header">
-                <div class="account-avatar">
-                    <i class="material-icons">account_circle</i>
-                </div>
-                <h2>Аккаунт</h2>
-            </div>
-            <div class="account-menu">
-                <div class="account-menu-item" data-action="orders">
-                    <i class="material-icons">shopping_bag</i>
-                    <span>Мои заказы</span>
-                    <i class="material-icons">chevron_right</i>
-                </div>
-                <div class="account-menu-item" data-action="support">
-                    <i class="material-icons">support_agent</i>
-                    <span>Поддержка</span>
-                    <i class="material-icons">chevron_right</i>
-                </div>
-            </div>
-        `;
-        
-        // Добавляем обработчики для пунктов меню
-        accountContainer.querySelectorAll('.account-menu-item').forEach(item => {
-            item.addEventListener('click', () => {
-                switch (item.dataset.action) {
-                    case 'orders':
-                        showOrders();
-                        break;
-                    case 'support':
-                        tg.openTelegramLink('https://t.me/neverepeatmanager');
-                        break;
-                    case 'about':
-                        // Отправляем callback для показа информации о магазине
-                        fetch(`https://api.telegram.org/bot${botToken}/answerCallbackQuery`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                callback_query_id: tg.initDataUnsafe?.query_id,
-                                data: 'about_us'
-                            })
-                        });
-                        Telegram.WebApp.close();
-                        break;
-                }
-            });
-        });
-        
-        document.body.appendChild(accountContainer);
-    }
-    
-    accountContainer.style.display = 'block';
-}
-
-function showOrders() {
-    showNotification('История заказов недоступна');
-}
-
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.textContent = message;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 2000);
-}
-
-function initStarCanvas() {
-    const canvas = document.getElementById('starCanvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-    const numStars = 100;
-    const starSpeed = 0.05;
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    function Star(x, y, radius, speed) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.speed = speed;
-
-        this.draw = function() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-            ctx.fillStyle = 'white';
-            ctx.fill();
-        };
-
-        this.update = function() {
-            this.y += this.speed;
-            if (this.y > canvas.height) {
-                this.y = 0;
-                this.x = Math.random() * canvas.width;
-            }
-            this.draw();
-        };
-    }
-
-    function initStars() {
-        for (let i = 0; i < numStars; i++) {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * canvas.height;
-            const radius = Math.random() * 1.5;
-            const speed = starSpeed + Math.random() * starSpeed;
-            stars.push(new Star(x, y, radius, speed));
-        }
-    }
-
-    function animateStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(star => star.update());
-        requestAnimationFrame(animateStars);
-    }
-
-    initStars();
-    animateStars();
-}
-
-window.addEventListener('resize', () => {
-    const canvas = document.getElementById('starCanvas');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-window.onload = initStarCanvas;
