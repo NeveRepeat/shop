@@ -67,13 +67,39 @@ async function getProducts(category = 'murder-mystery-2') {
         const data = await response.json();
         console.log('Все загруженные товары:', data);
         
+        // Проверяем структуру данных
+        if (typeof data !== 'object' || data === null) {
+            throw new Error('Неверный формат данных');
+        }
+
+        // Преобразуем данные в плоский массив товаров
+        let allProducts = [];
+        
+        // Если data - это объект с категориями
+        if (!Array.isArray(data)) {
+            for (const cat in data) {
+                if (Array.isArray(data[cat])) {
+                    const productsInCategory = data[cat].map(product => ({
+                        ...product,
+                        category: cat
+                    }));
+                    allProducts = allProducts.concat(productsInCategory);
+                }
+            }
+        } else {
+            allProducts = data;
+        }
+
+        console.log('Преобразованные товары:', allProducts);
+        
         // Фильтруем товары по категории, если она указана
         if (category && category !== 'all') {
-            const filteredProducts = data.filter(product => product.category === category);
+            const filteredProducts = allProducts.filter(product => product.category === category);
             console.log('Отфильтрованные товары:', filteredProducts);
             return filteredProducts;
         }
-        return data;
+        
+        return allProducts;
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
         return [];
@@ -171,36 +197,43 @@ function handleCategoryClick(category) {
 
 // Функция для фильтрации и отображения товаров
 async function filterAndDisplayProducts() {
-    const searchTerm = searchInput.value.toLowerCase();
-    const activeCategory = document.querySelector('.category-btn.active')?.dataset.category;
-    const sortValue = document.querySelector('.sort-select')?.value;
+    try {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeCategory = document.querySelector('.category-btn.active')?.dataset.category;
+        console.log('Активная категория:', activeCategory);
 
-    let filteredProducts = products;
+        // Загружаем товары для текущей категории
+        let filteredProducts = await getProducts(activeCategory);
+        console.log('Загруженные товары:', filteredProducts);
 
-    // Фильтрация по категории
-    if (activeCategory && activeCategory !== 'all') {
-        filteredProducts = filteredProducts.filter(product => product.category === activeCategory);
+        // Фильтрация по поисковому запросу
+        if (searchTerm) {
+            filteredProducts = filteredProducts.filter(product => 
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            console.log('Отфильтрованные по поиску товары:', filteredProducts);
+        }
+
+        // Сортировка
+        const sortValue = document.querySelector('.sort-select')?.value;
+        if (sortValue) {
+            filteredProducts.sort((a, b) => {
+                if (sortValue === 'price-asc') {
+                    return a.price - b.price;
+                } else if (sortValue === 'price-desc') {
+                    return b.price - a.price;
+                }
+                return 0;
+            });
+            console.log('Отсортированные товары:', filteredProducts);
+        }
+
+        // Отображаем товары
+        displayProducts(filteredProducts);
+    } catch (error) {
+        console.error('Ошибка в filterAndDisplayProducts:', error);
+        showNotification('Ошибка при загрузке товаров');
     }
-
-    // Фильтрация по поисковому запросу
-    if (searchTerm) {
-        filteredProducts = filteredProducts.filter(product =>
-            product.name.toLowerCase().includes(searchTerm)
-        );
-    }
-
-    // Сортировка
-    if (sortValue) {
-        filteredProducts.sort((a, b) => {
-            if (sortValue === 'price_asc') return a.price - b.price;
-            if (sortValue === 'price_desc') return b.price - a.price;
-            if (sortValue === 'name_asc') return a.name.localeCompare(b.name);
-            if (sortValue === 'name_desc') return b.name.localeCompare(a.name);
-            return 0;
-        });
-    }
-
-    displayProducts(filteredProducts);
 }
 
 // Обработчик для кнопки "Показать"
