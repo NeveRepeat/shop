@@ -1,1 +1,10 @@
-[]
+{
+  "murder-mystery-2": [
+    {
+      "name": "asdasda",
+      "price": 222,
+      "image": "https://i.pinimg.com/736x/9d/de/53/9dde5343f7e8740b4efe341e95fa86d7.jpg",
+      "id": 1
+    }
+  ]
+}
