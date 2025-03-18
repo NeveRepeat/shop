@@ -65,40 +65,33 @@ async function getProducts(category = 'murder-mystery-2') {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Все загруженные товары:', data);
+        console.log('Загруженные данные:', data);
         
         // Проверяем структуру данных
         if (typeof data !== 'object' || data === null) {
             throw new Error('Неверный формат данных');
         }
 
-        // Преобразуем данные в плоский массив товаров
-        let allProducts = [];
-        
-        // Если data - это объект с категориями
-        if (!Array.isArray(data)) {
-            for (const cat in data) {
-                if (Array.isArray(data[cat])) {
-                    const productsInCategory = data[cat].map(product => ({
-                        ...product,
-                        category: cat
-                    }));
-                    allProducts = allProducts.concat(productsInCategory);
-                }
-            }
-        } else {
-            allProducts = data;
+        // Если запрошена конкретная категория, возвращаем только ее товары
+        if (category && category !== 'all') {
+            const categoryProducts = data[category] || [];
+            console.log(`Товары для категории ${category}:`, categoryProducts);
+            return categoryProducts;
         }
 
-        console.log('Преобразованные товары:', allProducts);
-        
-        // Фильтруем товары по категории, если она указана
-        if (category && category !== 'all') {
-            const filteredProducts = allProducts.filter(product => product.category === category);
-            console.log('Отфильтрованные товары:', filteredProducts);
-            return filteredProducts;
+        // Если нужны все товары, собираем их в один массив
+        const allProducts = [];
+        for (const cat in data) {
+            if (Array.isArray(data[cat])) {
+                const productsWithCategory = data[cat].map(product => ({
+                    ...product,
+                    category: cat
+                }));
+                allProducts.push(...productsWithCategory);
+            }
         }
         
+        console.log('Все товары:', allProducts);
         return allProducts;
     } catch (error) {
         console.error('Ошибка загрузки товаров:', error);
@@ -110,11 +103,13 @@ async function getProducts(category = 'murder-mystery-2') {
 let products = [];
 async function loadProducts() {
     try {
-        products = await getProducts();
+        const activeCategory = document.querySelector('.category-btn.active')?.dataset.category || 'murder-mystery-2';
+        products = await getProducts(activeCategory);
         console.log('Товары загружены в loadProducts:', products);
         filterAndDisplayProducts();
     } catch (error) {
         console.error('Ошибка в loadProducts:', error);
+        showNotification('Ошибка при загрузке товаров');
     }
 }
 
@@ -202,9 +197,12 @@ async function filterAndDisplayProducts() {
         const activeCategory = document.querySelector('.category-btn.active')?.dataset.category;
         console.log('Активная категория:', activeCategory);
 
-        // Загружаем товары для текущей категории
-        let filteredProducts = await getProducts(activeCategory);
-        console.log('Загруженные товары:', filteredProducts);
+        // Используем уже загруженные товары или загружаем новые
+        let filteredProducts = products;
+        if (!filteredProducts || filteredProducts.length === 0) {
+            filteredProducts = await getProducts(activeCategory);
+        }
+        console.log('Товары для фильтрации:', filteredProducts);
 
         // Фильтрация по поисковому запросу
         if (searchTerm) {
