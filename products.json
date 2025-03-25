@@ -1,1 +1,10 @@
-{}
+{
+  "adopt-me": [
+    {
+      "name": "Проверка",
+      "price": 100,
+      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
+      "id": 1
+    }
+  ]
+}
