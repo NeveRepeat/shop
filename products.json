@@ -39,6 +39,12 @@
       "price": 40,
       "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
       "id": 8
+    },
+    {
+      "name": "LEOPARD FRUIT",
+      "price": 75,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyCpW5py7i3craPUoaFZEdh_FRZSQp6ZIvVe7bTzpHEzYqFoM_mON2mle1TKt8meNNDJE&usqp=CAU",
+      "id": 10
     }
   ],
   "pets-go": [
