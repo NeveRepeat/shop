@@ -25,11 +25,13 @@
       "price": 5200,
       "image": "https://i.ebayimg.com/images/g/zM8AAOSwFxhl4Uz8/s-l1200.png",
       "id": 4
-    },
+    }
+  ],
+  "toilet-tower-defense": [
     {
-      "name": "MFR DRAGON",
-      "price": 800,
-      "image": "https://i.pinimg.com/550x/98/4f/c7/984fc76733a4ae4694219f5d53e48a4b.jpg",
+      "name": "SIGNED TELANTHRICK",
+      "price": 380,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBrnY72DvQvnmvnp_GCCsTaRuwApPiKsKawQ&s",
       "id": 5
     }
   ]
