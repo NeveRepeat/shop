@@ -27,6 +27,14 @@
       "id": 4
     }
   ],
+  "blox-fruits": [
+    {
+      "name": "CONTROL FRUIT",
+      "price": 40,
+      "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
+      "id": 8
+    }
+  ],
   "pets-go": [
     {
       "name": "100m gems",
