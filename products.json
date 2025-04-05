@@ -31,14 +31,8 @@
     {
       "name": "CONTROL FRUIT",
       "price": 40,
-      "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh8swsbCUV0Hqh42hVY9XfyWmDO3T57YeHeA&s",
       "id": 8
-    },
-    {
-      "name": "PORTAL FRUIT",
-      "price": 30,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT63Ei6eZ5CnI77cJHZHr23YoD7S9gAvIk6Sw&s",
-      "id": 9
     }
   ],
   "pets-go": [
