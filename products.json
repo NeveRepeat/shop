@@ -5,6 +5,12 @@
       "price": 1000,
       "image": "https://avatars.mds.yandex.net/i?id=8ea70413b94edd16df57e4372cecefc4_l-4600465-images-thumbs&n=13",
       "id": 3
+    },
+    {
+      "name": "ICEPIERCER",
+      "price": 675,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRSbyuLRsbUtCMfwtVNS392pQ4GVf4dPe45A&s",
+      "id": 9
     }
   ],
   "adopt-me": [
@@ -25,12 +31,6 @@
       "price": 5200,
       "image": "https://i.ebayimg.com/images/g/zM8AAOSwFxhl4Uz8/s-l1200.png",
       "id": 4
-    },
-    {
-      "name": "FR CROW",
-      "price": 2650,
-      "image": "https://i.pinimg.com/736x/06/c0/2d/06c02ddf72c3d54158c7c620f5c77d4d.jpg",
-      "id": 9
     }
   ],
   "blox-fruits": [
