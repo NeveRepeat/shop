@@ -33,6 +33,12 @@
       "price": 40,
       "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
       "id": 8
+    },
+    {
+      "name": "MAMMONTH FRUIT",
+      "price": 20,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGMIdSG90OnL7sYG7wdQNXwwoXDmJPD7PhHQ&s",
+      "id": 9
     }
   ],
   "pets-go": [
