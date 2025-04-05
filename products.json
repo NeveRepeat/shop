@@ -5,6 +5,12 @@
       "price": 1000,
       "image": "https://avatars.mds.yandex.net/i?id=8ea70413b94edd16df57e4372cecefc4_l-4600465-images-thumbs&n=13",
       "id": 3
+    },
+    {
+      "name": "SUGAR GUN",
+      "price": 160,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQpKHutBmsaaY-CO1bJtpGNPmI0QjKSYVRoQ&s",
+      "id": 9
     }
   ],
   "adopt-me": [
@@ -31,7 +37,7 @@
     {
       "name": "CONTROL FRUIT",
       "price": 40,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh8swsbCUV0Hqh42hVY9XfyWmDO3T57YeHeA&s",
+      "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
       "id": 8
     }
   ],
