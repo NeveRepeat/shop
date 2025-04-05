@@ -25,13 +25,19 @@
       "price": 5200,
       "image": "https://i.ebayimg.com/images/g/zM8AAOSwFxhl4Uz8/s-l1200.png",
       "id": 4
+    },
+    {
+      "name": "FR CROW",
+      "price": 2650,
+      "image": "https://i.pinimg.com/736x/06/c0/2d/06c02ddf72c3d54158c7c620f5c77d4d.jpg",
+      "id": 9
     }
   ],
   "blox-fruits": [
     {
       "name": "CONTROL FRUIT",
       "price": 40,
-      "image": "https://bloxfruitstrades.com/images/items/control-fruit-v2.webp",
+      "image": "https://static.wikia.nocookie.net/roblox-blox-piece/images/0/01/ControlFruit.png/revision/latest?cb=20231027115345",
       "id": 8
     }
   ],
