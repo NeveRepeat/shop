@@ -3,8 +3,14 @@
     {
       "name": "NFR GIRAFFE",
       "price": 12000,
-      "image": "https://i.pinimg.com/474x/56/ed/3b/56ed3ba03d5c1b1e41258b72a85eea96.jpg",
+      "image": "https://static.wikia.nocookie.net/adoptme/images/1/18/Neon_giraffe_adopt_me.jpg/revision/latest?cb=20211127160202",
       "id": 1
+    },
+    {
+      "name": "FR SHADOW DRAGON",
+      "price": 7500,
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fshopozz.ru%2Fitems%2F353976882659-fr-shadow-dragon--fly-ride--adopt-me-pet-best-price&psig=AOvVaw3vSFPcE1aTRseU9TDfx0Of&ust=1743926757500000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJDPxPfRwIwDFQAAAAAdAAAAABAK",
+      "id": 2
     }
   ]
 }
