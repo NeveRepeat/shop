@@ -5,6 +5,12 @@
       "price": 1000,
       "image": "https://avatars.mds.yandex.net/i?id=8ea70413b94edd16df57e4372cecefc4_l-4600465-images-thumbs&n=13",
       "id": 3
+    },
+    {
+      "name": "CANDY KNIFE",
+      "price": 260,
+      "image": "https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F9.1.png%3Fv%3D1737662783%3Fformat%3Dwebp&w=640&q=75",
+      "id": 9
     }
   ],
   "adopt-me": [
@@ -49,12 +55,6 @@
       "price": 32,
       "image": "https://ckbox.cloud/PbtJgmeJvcYgQP2rIGfG/assets/UezoOM7sJygK/file",
       "id": 6
-    },
-    {
-      "name": "HUGE PET",
-      "price": 8,
-      "image": "https://tr.rbxcdn.com/180DAY-d735b35fc99fca5f0cb555dc4dabfe64/150/150/Image/Png/noFilter",
-      "id": 9
     }
   ],
   "toilet-tower-defense": [
