@@ -292,7 +292,7 @@ function showCart() {
                 <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-info">
                     <h3 class="cart-item-title">${item.name}</h3>
-                    <p class="cart-item-price">Цена ${item.price}₽</p>
+                    <p class="cart-item-price">Цена ${item.price.toFixed(2)}₽</p>
                     <div class="cart-item-quantity">
                         <button class="quantity-btn minus" data-id="${item.id}">-</button>
                         <span>${item.quantity}</span>
@@ -306,10 +306,10 @@ function showCart() {
     cartHTML += `
         </div>
         <div class="cart-total">
-            <p>Итого: ${total}₽</p>
+            <p>Итого: ${total.toFixed(2)}₽</p>
         </div>
         <button class="checkout-button" onclick="checkout()">
-            Оформить заказ (${total}₽)
+            Оформить заказ (${total.toFixed(2)}₽)
         </button>
     `;
     
@@ -318,17 +318,17 @@ function showCart() {
     // Добавляем обработчики для кнопок + и -
     cartContainer.querySelectorAll('.quantity-btn').forEach(button => {
         button.addEventListener('click', () => {
-            const id = button.dataset.id;
+            const id = String(button.dataset.id);
             const isPlus = button.classList.contains('plus');
             
-            const item = cart.find(item => item.id === id);
+            const item = cart.find(item => String(item.id) === id);
             if (item) {
                 if (isPlus) {
                     item.quantity += 1;
                 } else if (item.quantity > 1) {
                     item.quantity -= 1;
                 } else {
-                    cart = cart.filter(cartItem => cartItem.id !== id);
+                    cart = cart.filter(cartItem => String(cartItem.id) !== id);
                 }
                 saveCart();
                 showCart(); // Перерисовываем корзину
@@ -483,7 +483,7 @@ function displayProducts(productsToShow) {
             <div class="product-info">
                 <h3 class="product-name">${productName}</h3>
                 <div class="product-footer">
-                    <span class="product-price">${productPrice}₽</span>
+                    <span class="product-price">${productPrice.toFixed(2)}₽</span>
                     <button class="add-to-cart-btn" onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})">
                         <i class="material-icons">add_shopping_cart</i>
                     </button>
@@ -1023,7 +1023,7 @@ function checkout() {
                 <div class="section-number">2</div>
                 <h2>Итого</h2>
             </div>
-            <p class="total-amount">${total}₽</p>
+            <p class="total-amount">${total.toFixed(2)}₽</p>
         </div>
         
         <button class="checkout-button" id="checkoutButton">
