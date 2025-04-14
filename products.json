@@ -39,12 +39,6 @@
       "price": 40,
       "image": "https://i.pinimg.com/originals/92/23/2d/92232d5482dc4d8d68c3d7d57d56a14c.webp",
       "id": 8
-    },
-    {
-      "name": "Bfndn",
-      "price": 55,
-      "image": "https://i.pinimg.com/736x/d4/53/c1/d453c1fe191638fbd724324d7b24f1bc.jpg",
-      "id": 10
     }
   ],
   "pets-go": [
@@ -61,6 +55,12 @@
       "price": 32,
       "image": "https://ckbox.cloud/PbtJgmeJvcYgQP2rIGfG/assets/UezoOM7sJygK/file",
       "id": 6
+    },
+    {
+      "name": "Hdndm",
+      "price": 65,
+      "image": "https://i.pinimg.com/736x/d4/53/c1/d453c1fe191638fbd724324d7b24f1bc.jpg",
+      "id": 10
     }
   ],
   "toilet-tower-defense": [
