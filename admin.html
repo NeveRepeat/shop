@@ -247,6 +247,60 @@
             gap: 10px;
             margin-bottom: 20px;
         }
+
+        .queue-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .queue-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+        }
+
+        .queue-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .queue-item-info {
+            flex-grow: 1;
+        }
+
+        .queue-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .queue-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .publish-btn {
+            background-color: #4CAF50;
+        }
+
+        .clear-btn {
+            background-color: #f44336;
+        }
+
+        .remove-from-queue {
+            color: #ff4444;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
     </style>
 </head>
 <body>
@@ -269,7 +323,7 @@
             <button onclick="authenticate()">Войти</button>
         </div>
 
-        <form class="product-form" id="productForm" style="display: none;">
+        <div class="product-form" id="productForm" style="display: none;">
             <input type="hidden" id="productId">
             <div class="form-group">
                 <label for="productName">Название:</label>
@@ -298,36 +352,22 @@
                 </select>
             </div>
             <button type="submit">Сохранить</button>
+            <button type="button" onclick="addToQueue()">Добавить в очередь</button>
             <button type="button" onclick="this.form.reset(); document.getElementById('productId').value = '';">Отмена</button>
-        </form>
+        </div>
 
-        <!-- Форма для массового импорта -->
-        <div class="product-form" id="bulkImportForm" style="display: none;">
-            <h3>Массовый импорт товаров</h3>
-            <div class="form-group">
-                <label for="jsonInput">JSON с товарами:</label>
-                <textarea id="jsonInput" rows="10" placeholder='[
-    {
-        "name": "Название товара",
-        "price": 100,
-        "image": "https://example.com/image.jpg",
-        "category": "adopt-me"
-    },
-    {
-        "name": "Другой товар",
-        "price": 200,
-        "image": "https://example.com/image2.jpg",
-        "category": "robux"
-    }
-]'></textarea>
+        <!-- Очередь товаров -->
+        <div class="queue-container" id="queueContainer" style="display: none;">
+            <h3>Очередь товаров на публикацию</h3>
+            <div class="queue-list" id="queueList"></div>
+            <div class="queue-actions">
+                <button onclick="publishQueue()" class="publish-btn">Опубликовать все</button>
+                <button onclick="clearQueue()" class="clear-btn">Очистить очередь</button>
             </div>
-            <button type="button" onclick="importBulkProducts()">Импортировать</button>
-            <button type="button" onclick="toggleForms('productForm')">Отмена</button>
         </div>
 
         <div class="form-actions" style="margin-bottom: 20px; display: none;" id="formActions">
             <button onclick="toggleForms('productForm')">Добавить товар</button>
-            <button onclick="toggleForms('bulkImportForm')">Массовый импорт</button>
         </div>
 
         <div id="productsList" class="products-list"></div>
@@ -339,6 +379,9 @@
         const REPO_NAME = 'shop';
         const FILE_PATH = 'products.json';
         let GITHUB_TOKEN = localStorage.getItem('github_token');
+
+        // Добавляем переменную для хранения очереди товаров
+        let productQueue = [];
 
         // Аутентификация
         async function authenticate() {
@@ -360,6 +403,7 @@
                     localStorage.setItem('github_token', token);
                     document.getElementById('authForm').style.display = 'none';
                     document.getElementById('formActions').style.display = 'flex';
+                    document.getElementById('productForm').style.display = 'block';
                     await displayProducts();
                 } else {
                     showError('Неверный токен');
@@ -717,41 +761,88 @@
         // Добавляем новые функции в JavaScript
         function toggleForms(formToShow) {
             document.getElementById('productForm').style.display = 'none';
-            document.getElementById('bulkImportForm').style.display = 'none';
+            document.getElementById('queueContainer').style.display = 'none';
             if (formToShow) {
                 document.getElementById(formToShow).style.display = 'block';
             }
         }
 
-        async function importBulkProducts() {
-            const jsonInput = document.getElementById('jsonInput').value;
-            
+        // Функция добавления товара в очередь
+        function addToQueue() {
+            const name = document.getElementById('productName').value.trim();
+            const price = document.getElementById('productPrice').value;
+            const image = document.getElementById('productImage').value.trim();
+            const category = document.getElementById('productCategory').value;
+
+            if (!name || !price || !category) {
+                showError('Заполните все обязательные поля');
+                return;
+            }
+
+            const product = {
+                name,
+                price: parseFloat(price),
+                image,
+                category
+            };
+
+            productQueue.push(product);
+            updateQueueDisplay();
+            document.getElementById('queueContainer').style.display = 'block';
+            document.getElementById('productForm').reset();
+            showError('Товар добавлен в очередь');
+        }
+
+        // Функция обновления отображения очереди
+        function updateQueueDisplay() {
+            const queueList = document.getElementById('queueList');
+            queueList.innerHTML = productQueue.map((product, index) => `
+                <div class="queue-item">
+                    <div class="queue-item-info">
+                        <strong>${product.name}</strong> - ${product.price}₽ (${product.category})
+                    </div>
+                    <div class="queue-item-actions">
+                        <button class="remove-from-queue" onclick="removeFromQueue(${index})">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Функция удаления товара из очереди
+        function removeFromQueue(index) {
+            productQueue.splice(index, 1);
+            updateQueueDisplay();
+            if (productQueue.length === 0) {
+                document.getElementById('queueContainer').style.display = 'none';
+            }
+        }
+
+        // Функция очистки очереди
+        function clearQueue() {
+            if (confirm('Вы уверены, что хотите очистить всю очередь?')) {
+                productQueue = [];
+                updateQueueDisplay();
+                document.getElementById('queueContainer').style.display = 'none';
+            }
+        }
+
+        // Функция публикации всей очереди
+        async function publishQueue() {
+            if (productQueue.length === 0) {
+                showError('Очередь пуста');
+                return;
+            }
+
+            showLoading();
             try {
-                // Парсим JSON
-                const newProducts = JSON.parse(jsonInput);
-                
-                if (!Array.isArray(newProducts)) {
-                    throw new Error('Данные должны быть массивом товаров');
-                }
-
-                // Валидация данных
-                for (const product of newProducts) {
-                    if (!product.name || !product.price || !product.category) {
-                        throw new Error('Каждый товар должен иметь name, price и category');
-                    }
-                    if (!document.getElementById('productCategory').querySelector(`option[value="${product.category}"]`)) {
-                        throw new Error(`Неверная категория: ${product.category}`);
-                    }
-                }
-
-                showLoading();
-
                 // Получаем текущие товары
                 const currentProducts = await getProducts();
                 
-                // Генерируем новые ID для импортируемых товаров
+                // Генерируем новые ID для товаров в очереди
                 const maxId = Math.max(0, ...currentProducts.map(p => p.id || 0));
-                const productsWithIds = newProducts.map((product, index) => ({
+                const productsWithIds = productQueue.map((product, index) => ({
                     ...product,
                     id: maxId + index + 1
                 }));
@@ -762,17 +853,17 @@
                 // Сохраняем обновленный список
                 await saveProducts(updatedProducts);
                 
+                // Очищаем очередь
+                productQueue = [];
+                document.getElementById('queueContainer').style.display = 'none';
+                
                 // Обновляем отображение
                 await displayProducts();
                 
-                // Очищаем форму и показываем сообщение об успехе
-                document.getElementById('jsonInput').value = '';
-                toggleForms(null);
-                showError('Товары успешно импортированы');
-                
+                showError('Все товары успешно опубликованы');
             } catch (error) {
-                console.error('Error importing products:', error);
-                showError('Ошибка при импорте: ' + error.message);
+                console.error('Error publishing products:', error);
+                showError('Ошибка при публикации: ' + error.message);
             } finally {
                 hideLoading();
             }
