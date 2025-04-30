@@ -230,6 +230,23 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .product-form textarea {
+            width: 100%;
+            min-height: 200px;
+            font-family: monospace;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--tg-theme-text-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -284,6 +301,35 @@
             <button type="button" onclick="this.form.reset(); document.getElementById('productId').value = '';">Отмена</button>
         </form>
 
+        <!-- Форма для массового импорта -->
+        <div class="product-form" id="bulkImportForm" style="display: none;">
+            <h3>Массовый импорт товаров</h3>
+            <div class="form-group">
+                <label for="jsonInput">JSON с товарами:</label>
+                <textarea id="jsonInput" rows="10" placeholder='[
+    {
+        "name": "Название товара",
+        "price": 100,
+        "image": "https://example.com/image.jpg",
+        "category": "adopt-me"
+    },
+    {
+        "name": "Другой товар",
+        "price": 200,
+        "image": "https://example.com/image2.jpg",
+        "category": "robux"
+    }
+]'></textarea>
+            </div>
+            <button type="button" onclick="importBulkProducts()">Импортировать</button>
+            <button type="button" onclick="toggleForms('productForm')">Отмена</button>
+        </div>
+
+        <div class="form-actions" style="margin-bottom: 20px; display: none;" id="formActions">
+            <button onclick="toggleForms('productForm')">Добавить товар</button>
+            <button onclick="toggleForms('bulkImportForm')">Массовый импорт</button>
+        </div>
+
         <div id="productsList" class="products-list"></div>
     </div>
 
@@ -313,7 +359,7 @@
                     GITHUB_TOKEN = token;
                     localStorage.setItem('github_token', token);
                     document.getElementById('authForm').style.display = 'none';
-                    document.getElementById('productForm').style.display = 'block';
+                    document.getElementById('formActions').style.display = 'flex';
                     await displayProducts();
                 } else {
                     showError('Неверный токен');
@@ -666,6 +712,70 @@
             }
             
             return categorizedProducts;
+        }
+
+        // Добавляем новые функции в JavaScript
+        function toggleForms(formToShow) {
+            document.getElementById('productForm').style.display = 'none';
+            document.getElementById('bulkImportForm').style.display = 'none';
+            if (formToShow) {
+                document.getElementById(formToShow).style.display = 'block';
+            }
+        }
+
+        async function importBulkProducts() {
+            const jsonInput = document.getElementById('jsonInput').value;
+            
+            try {
+                // Парсим JSON
+                const newProducts = JSON.parse(jsonInput);
+                
+                if (!Array.isArray(newProducts)) {
+                    throw new Error('Данные должны быть массивом товаров');
+                }
+
+                // Валидация данных
+                for (const product of newProducts) {
+                    if (!product.name || !product.price || !product.category) {
+                        throw new Error('Каждый товар должен иметь name, price и category');
+                    }
+                    if (!document.getElementById('productCategory').querySelector(`option[value="${product.category}"]`)) {
+                        throw new Error(`Неверная категория: ${product.category}`);
+                    }
+                }
+
+                showLoading();
+
+                // Получаем текущие товары
+                const currentProducts = await getProducts();
+                
+                // Генерируем новые ID для импортируемых товаров
+                const maxId = Math.max(0, ...currentProducts.map(p => p.id || 0));
+                const productsWithIds = newProducts.map((product, index) => ({
+                    ...product,
+                    id: maxId + index + 1
+                }));
+
+                // Добавляем новые товары к существующим
+                const updatedProducts = [...currentProducts, ...productsWithIds];
+                
+                // Сохраняем обновленный список
+                await saveProducts(updatedProducts);
+                
+                // Обновляем отображение
+                await displayProducts();
+                
+                // Очищаем форму и показываем сообщение об успехе
+                document.getElementById('jsonInput').value = '';
+                toggleForms(null);
+                showError('Товары успешно импортированы');
+                
+            } catch (error) {
+                console.error('Error importing products:', error);
+                showError('Ошибка при импорте: ' + error.message);
+            } finally {
+                hideLoading();
+            }
         }
 
         displayProducts();
