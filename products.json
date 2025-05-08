@@ -17,6 +17,12 @@
       "price": 145,
       "image": "https://imgur.com/a/UZJqq3A",
       "id": 11
+    },
+    {
+      "name": "CHROMA SWIRLY GUN",
+      "price": 145,
+      "image": "https://imgur.com/a/oTf4inQ",
+      "id": 12
     }
   ],
   "adopt-me": [
@@ -87,12 +93,6 @@
       "price": 40,
       "image": "https://i.pinimg.com/originals/92/23/2d/92232d5482dc4d8d68c3d7d57d56a14c.webp",
       "id": 8
-    },
-    {
-      "name": "111111111",
-      "price": 5555,
-      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
-      "id": 14
     },
     {
       "name": "111111111",
