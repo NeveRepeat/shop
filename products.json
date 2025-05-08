@@ -63,16 +63,16 @@
       "id": 20
     },
     {
-      "name": "c4",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=3035a05eeb4ba9a8ca1ad6e54b13b3f7_l-4719550-images-thumbs&n=13",
-      "id": 21
-    },
-    {
       "name": "c5",
       "price": 1,
       "image": "https://avatars.mds.yandex.net/i?id=c2dac44e230cf201ab11e862515a7fec-5256069-images-thumbs&n=13",
       "id": 22
+    },
+    {
+      "name": "c6",
+      "price": 1,
+      "image": "https://avatars.mds.yandex.net/i?id=5e097d6e9aca6cf8862775a3418ac29d_l-12932370-images-thumbs&n=13",
+      "id": 23
     },
     {
       "name": "c6",
