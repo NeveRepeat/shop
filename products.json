@@ -79,12 +79,6 @@
       "price": 1,
       "image": "https://avatars.mds.yandex.net/i?id=5e097d6e9aca6cf8862775a3418ac29d_l-12932370-images-thumbs&n=13",
       "id": 23
-    },
-    {
-      "name": "c6",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=5e097d6e9aca6cf8862775a3418ac29d_l-12932370-images-thumbs&n=13",
-      "id": 25
     }
   ],
   "blox-fruits": [
@@ -133,6 +127,12 @@
       "price": 25,
       "image": "https://ckbox.cloud/PbtJgmeJvcYgQP2rIGfG/assets/UezoOM7sJygK/file",
       "id": 6
+    },
+    {
+      "name": "Hdndm",
+      "price": 65,
+      "image": "https://i.pinimg.com/736x/d4/53/c1/d453c1fe191638fbd724324d7b24f1bc.jpg",
+      "id": 10
     },
     {
       "name": "111111111",
