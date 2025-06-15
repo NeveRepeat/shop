@@ -370,6 +370,7 @@
             <button onclick="toggleForms('productForm')">Добавить товар</button>
         </div>
 
+        <button id="deleteSelectedBtn" onclick="deleteSelectedProducts()" style="margin-bottom: 20px; display: none;">Удалить выбранные</button>
         <div id="productsList" class="products-list"></div>
     </div>
 
@@ -558,16 +559,18 @@
         async function displayProducts() {
             const productsList = document.getElementById('productsList');
             showLoading();
-            
             try {
                 const products = await getProducts();
                 if (!products || products.length === 0) {
                     productsList.innerHTML = '<div class="error-message">Нет товаров для отображения</div>';
+                    document.getElementById('deleteSelectedBtn').style.display = 'none';
                     return;
                 }
-
                 productsList.innerHTML = products.map((product, index) => `
                     <div class="product-card">
+                        <div style="position: absolute; z-index: 2; margin: 8px;">
+                            <input type="checkbox" class="product-checkbox" data-index="${index}" onchange="onProductCheckboxChange()">
+                        </div>
                         <div class="product-image">
                             ${product.image ? 
                                 `<img src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\\'http://www.w3.org/2000/svg\\' width=\\'200\\' height=\\'200\\'><rect width=\\'200\\' height=\\'200\\' fill=\\'%23ddd\\'/><text x=\\'50%\\' y=\\'50%\\' font-size=\\'16\\' fill=\\'%23666\\' text-anchor=\\'middle\\' dy=\\'.3em\\'>Нет изображения</text></svg>'">` :
@@ -589,6 +592,8 @@
                         </div>
                     </div>
                 `).join('');
+                // Сбросить состояние чекбоксов и кнопки
+                onProductCheckboxChange();
             } catch (error) {
                 console.error('Error displaying products:', error);
                 showError('Ошибка при отображении товаров');
@@ -864,6 +869,34 @@
             } catch (error) {
                 console.error('Error publishing products:', error);
                 showError('Ошибка при публикации: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Массовое удаление товаров
+        function onProductCheckboxChange() {
+            const checkboxes = document.querySelectorAll('.product-checkbox');
+            const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+            document.getElementById('deleteSelectedBtn').style.display = anyChecked ? 'block' : 'none';
+        }
+
+        async function deleteSelectedProducts() {
+            if (!confirm('Вы уверены, что хотите удалить выбранные товары?')) return;
+            showLoading();
+            try {
+                const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+                const indexesToDelete = Array.from(checkboxes).map(cb => parseInt(cb.getAttribute('data-index')));
+                if (indexesToDelete.length === 0) return;
+                let products = await getProducts();
+                // Удаляем с конца, чтобы индексы не сбивались
+                indexesToDelete.sort((a, b) => b - a).forEach(idx => products.splice(idx, 1));
+                await saveProducts(products);
+                await displayProducts();
+                showError('Выбранные товары удалены');
+            } catch (error) {
+                console.error('Error deleting selected products:', error);
+                showError('Ошибка при массовом удалении');
             } finally {
                 hideLoading();
             }

@@ -1,40 +1,48 @@
 {
+  "murder-mystery-2": [
+    {
+      "name": "CORRUPT",
+      "price": 1000,
+      "image": "https://avatars.mds.yandex.net/i?id=8ea70413b94edd16df57e4372cecefc4_l-4600465-images-thumbs&n=13",
+      "id": 3
+    },
+    {
+      "name": "CANDY KNIFE",
+      "price": 260,
+      "image": "https://bloxcart.com/_next/image/?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0815%2F2068%2F9482%2Ffiles%2F9.1.png%3Fv%3D1737662783%3Fformat%3Dwebp&w=640&q=75",
+      "id": 9
+    },
+    {
+      "name": "SUGAR",
+      "price": 145,
+      "image": "https://imgur.com/a/UZJqq3A",
+      "id": 11
+    },
+    {
+      "name": "CHROMA SWIRLY GUN",
+      "price": 145,
+      "image": "https://imgur.com/a/oTf4inQ",
+      "id": 12
+    }
+  ],
   "adopt-me": [
     {
-      "name": "c1",
-      "price": 1,
-      "image": "https://i.pinimg.com/originals/95/86/e2/9586e2e2046315893e65d408f9c2d0d4.png",
-      "id": 18
+      "name": "NFR GIRAFFE",
+      "price": 12000,
+      "image": "https://cdn-offer-photos.zeusx.com/44cdb43b-d2ae-4a5c-9e42-0a3cd3624203.jpg",
+      "id": 1
     },
     {
-      "name": "c2",
-      "price": 1,
-      "image": "https://media.karousell.com/media/photos/products/2020/9/23/adopt_me__shadow_dragon_postte_1600855548_15612a7c.jpg",
-      "id": 19
+      "name": "FR SHADOW DRAGON",
+      "price": 7500,
+      "image": "https://i.ebayimg.com/00/s/NzI1WDcyNg==/z/VRkAAOSwpuVm4N8G/$_12.JPG?set_id=880000500F",
+      "id": 2
     },
     {
-      "name": "c3",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=919aeebc8a11058ef557cfc08018ec4a_l-7051792-images-thumbs&n=13",
-      "id": 20
-    },
-    {
-      "name": "c5",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=c2dac44e230cf201ab11e862515a7fec-5256069-images-thumbs&n=13",
-      "id": 22
-    },
-    {
-      "name": "c6",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=5e097d6e9aca6cf8862775a3418ac29d_l-12932370-images-thumbs&n=13",
-      "id": 23
-    },
-    {
-      "name": "c6",
-      "price": 1,
-      "image": "https://avatars.mds.yandex.net/i?id=5e097d6e9aca6cf8862775a3418ac29d_l-12932370-images-thumbs&n=13",
-      "id": 25
+      "name": "MFR TURTLE",
+      "price": 5200,
+      "image": "https://i.ebayimg.com/images/g/zM8AAOSwFxhl4Uz8/s-l1200.png",
+      "id": 4
     }
   ],
   "blox-fruits": [
@@ -43,24 +51,6 @@
       "price": 40,
       "image": "https://i.pinimg.com/originals/92/23/2d/92232d5482dc4d8d68c3d7d57d56a14c.webp",
       "id": 8
-    },
-    {
-      "name": "111111111",
-      "price": 5555,
-      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
-      "id": 14
-    },
-    {
-      "name": "111111111",
-      "price": 5555,
-      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
-      "id": 15
-    },
-    {
-      "name": "111111111",
-      "price": 5555,
-      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
-      "id": 16
     }
   ],
   "pets-go": [
@@ -83,12 +73,6 @@
       "price": 65,
       "image": "https://i.pinimg.com/736x/d4/53/c1/d453c1fe191638fbd724324d7b24f1bc.jpg",
       "id": 10
-    },
-    {
-      "name": "111111111",
-      "price": 5555,
-      "image": "https://static.wikia.nocookie.net/adoptme/images/f/fd/Frost_Dragon_Pet.png/revision/latest?cb=20200116000126",
-      "id": 13
     }
   ],
   "toilet-tower-defense": [
