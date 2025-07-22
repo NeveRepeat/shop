@@ -252,7 +252,7 @@ function showCart() {
                 <button class="back-button">
                     <i class="material-icons">arrow_back</i>
                 </button>
-                <h1>NEVEREPEAT ROOM</h1>
+                <h1>ВАШ ЗАКАЗ</h1>
             </div>
             <div class="cart-empty">
                 <p>Ваша корзина пуста</p>
@@ -279,7 +279,7 @@ function showCart() {
             <button class="back-button">
                 <i class="material-icons">arrow_back</i>
             </button>
-            <h1>NEVEREPEAT ROOM</h1>
+            <h1>ВАШ ЗАКАЗ</h1>
         </div>
         <div class="cart-items">
     `;
