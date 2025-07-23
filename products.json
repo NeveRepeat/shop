@@ -1,4 +1,26 @@
 {
+  "murder-mystery-2": [
+    {
+      "name": "TRAVELLER'S GUN | GODLY",
+      "price": 3300,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdxy_Hb1_2e4ZsNZ70MIbrMk8I8MOvv-zzfQ&s",
+      "id": 26
+    },
+    {
+      "name": "HARVESTER | ANCIENT",
+      "price": 745,
+      "image": "https://i.ebayimg.com/images/g/kYcAAOSw5m1kjSyR/s-l1200.jpg",
+      "id": 27
+    }
+  ],
+  "pets-go": [
+    {
+      "name": "ACORN #111 | ЖËЛУДЬ | АКОРН | СЕКРЕТКА",
+      "price": 210,
+      "image": "https://static.wikia.nocookie.net/pets-go/images/c/cd/Acorn.png/revision/latest/thumbnail/width/360/height/360?cb=20241129185957",
+      "id": 25
+    }
+  ],
   "pet-simulator-99": [
     {
       "name": "1m gems/1 миллион гемов",
@@ -79,6 +101,18 @@
       "price": 270,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Z4UH4WgCsHHe7pftr7yTeDN463qCqX-Jhg&s",
       "id": 11
+    },
+    {
+      "name": "ULTIMATE QUANTUM CAMERAMAN | УЛЬТИМЕЙТ КВАНТУМ КАМЕРАМЕН",
+      "price": 770,
+      "image": "https://cdn.shopify.com/s/files/1/0837/8712/0919/files/121371425317184.png?v=1730077376",
+      "id": 23
+    },
+    {
+      "name": "SIGNED ULTIMATE UPGRADED TITAN DRILL DRAGON | ПОДПИСАННЫЙ УЛЬТИМЕЙТ ДРЕЛЬ ДРАКОН",
+      "price": 940,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0LZKB74laZJ31hZBWNSbjb3xYCUQNEJTgEw&s",
+      "id": 24
     }
   ]
 }
