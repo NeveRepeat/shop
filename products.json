@@ -43,6 +43,42 @@
       "price": 17900,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgr_vnJHqKHc6YWF5NtXdpgc0-7-wI4bs9eg&s",
       "id": 40
+    },
+    {
+      "name": "NFR OWL | НФР СОВА",
+      "price": 6350,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/01/nfr-owl.jpg",
+      "id": 41
+    },
+    {
+      "name": "MFR LION | МФР ЛЕВ | ИЗ САФАРИ ЯЙЦА",
+      "price": 3300,
+      "image": "https://i.ebayimg.com/images/g/mhcAAOSwEqlnDsDo/s-l400.jpg",
+      "id": 42
+    },
+    {
+      "name": "MFR JELLYFISH | МФР МЕДУЗА",
+      "price": 2900,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIfWCFco8wpoMFsu4p-VPhrUSPrIog5aSLHw&s",
+      "id": 43
+    },
+    {
+      "name": "MFR TURTLE | МФР ЧЕРЕПАХА",
+      "price": 2670,
+      "image": "https://i.ebayimg.com/images/g/zM8AAOSwFxhl4Uz8/s-l1200.png",
+      "id": 44
+    },
+    {
+      "name": "NFR DALMATIAN | НФР ДАЛМАТИН",
+      "price": 2010,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/05/nfr-dalm.jpg",
+      "id": 45
+    },
+    {
+      "name": "NFR DALMATIAN | НФР ДАЛМАТИН",
+      "price": 2010,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/05/nfr-dalm.jpg",
+      "id": 46
     }
   ],
   "blox-fruits": [
