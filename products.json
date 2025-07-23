@@ -42,5 +42,31 @@
       "image": "https://static.wikia.nocookie.net/pet-simulator/images/6/60/PS99_Huge_Pixel_Goblin.png/revision/latest?cb=20250517182417",
       "id": 7
     }
+  ],
+  "toilet-tower-defense": [
+    {
+      "name": "1000 gems/1000 гемов",
+      "price": 1.85,
+      "image": "https://img3.festima.ru/2/1.bogZEraAwmFvvABuSQN0lh-zwGWrpcZhq8KjZatxzaOiscZ7b7wAbq8.oqrW_4IMb1n0ebH-eBtTi_it_2HJCfFJkfw9t_YCTYE",
+      "id": 8
+    },
+    {
+      "name": "ULTIMATE TITAN CRYO CLOCK STRIKER | УЛЬТИМЕЙТ ТИТАН КРИО КЛОК СТРАЙКЕР",
+      "price": 345,
+      "image": "https://avatars.mds.yandex.net/i?id=b52427b7a1a1af80d55b37b2e271c6fbbc6727f5-4568533-images-thumbs&n=13",
+      "id": 9
+    },
+    {
+      "name": "EXECUTIONER SPEAKERMAN | ПАЛАЧ СПИКЕР | CELESTIAL",
+      "price": 270,
+      "image": "https://ttdunitshop.ru/wp-content/uploads/2025/05/%D0%91%D0%B5%D0%B7-%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F1-1.png",
+      "id": 10
+    },
+    {
+      "name": "EXECUTIONER SPEAKERMAN | ПАЛАЧ СПИКЕР | CELESTIAL",
+      "price": 270,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Z4UH4WgCsHHe7pftr7yTeDN463qCqX-Jhg&s",
+      "id": 11
+    }
   ]
 }
