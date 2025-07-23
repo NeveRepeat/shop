@@ -13,6 +13,38 @@
       "id": 27
     }
   ],
+  "adopt-me": [
+    {
+      "name": "MFR DRAGON | МФР ДРАКОН",
+      "price": 360,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/06/mfr-dragon.png",
+      "id": 36
+    },
+    {
+      "name": "MFR KING BEE | МФР КОРОЛЬ ПЧЁЛ",
+      "price": 770,
+      "image": "https://i.ebayimg.com/images/g/YyQAAOSwVC1m7G-c/s-l400.jpg",
+      "id": 37
+    },
+    {
+      "name": "MFR SHADOW DRAGON | МФР ШАДОУ ДРАКОН",
+      "price": 42000,
+      "image": "https://i.ebayimg.com/images/g/f-IAAeSwBBFoAxg1/s-l400.jpg",
+      "id": 38
+    },
+    {
+      "name": "MFR FROST DRAGON | МФР ФРОСТ ДРАКОН",
+      "price": 20400,
+      "image": "https://i.ebayimg.com/images/g/rlAAAOSwtr1m40Zv/s-l1200.jpg",
+      "id": 39
+    },
+    {
+      "name": "MFR PARROT | МФР ПОПУГАЙ",
+      "price": 17900,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgr_vnJHqKHc6YWF5NtXdpgc0-7-wI4bs9eg&s",
+      "id": 40
+    }
+  ],
   "blox-fruits": [
     {
       "name": "CONTROL FRUIT | КОНТРОЛЬ",
