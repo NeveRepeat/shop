@@ -7,18 +7,6 @@
       "id": 6
     },
     {
-      "name": "Huge Ninja Dalmatian",
-      "price": 1.2,
-      "image": "https://static.wikia.nocookie.net/pet-simulator/images/8/87/PS99_Huge_Ninja_Dalmatian.png/revision/latest/scale-to-width/360?cb=20250614173020",
-      "id": 13
-    },
-    {
-      "name": "Huge Blurred Owl",
-      "price": 1.3,
-      "image": "https://static.wikia.nocookie.net/pet-simulator/images/4/40/PS99_Huge_Blurred_Owl.png/revision/latest/scale-to-width/360?cb=20250621182914",
-      "id": 14
-    },
-    {
       "name": "Huge Pixel Goblin",
       "price": 1.8,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw1kt5krlbx-af7sIx6CjhH5XQxiHZz_pVag&s",
@@ -61,12 +49,6 @@
       "price": 270,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Z4UH4WgCsHHe7pftr7yTeDN463qCqX-Jhg&s",
       "id": 11
-    },
-    {
-      "name": "SIGNED OMEGA REACTOR OVERLORD #169",
-      "price": 420,
-      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Z4UH4WgCsHHe7pftr7yTeDN463qCqX-Jhg&s",
-      "id": 12
     }
   ]
 }
