@@ -5,6 +5,38 @@
       "price": 3300,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdxy_Hb1_2e4ZsNZ70MIbrMk8I8MOvv-zzfQ&s",
       "id": 26
+    },
+    {
+      "name": "HARVESTER | ANCIENT",
+      "price": 740,
+      "image": "https://cdn-offer-photos.zeusx.com/5ea3301f-1354-4eab-9f46-7f2add977c63.jpg",
+      "id": 27
+    }
+  ],
+  "blox-fruits": [
+    {
+      "name": "CONTROL FRUIT | КОНТРОЛЬ",
+      "price": 15,
+      "image": "https://i.redd.it/az697fzd4vvb1.jpg",
+      "id": 28
+    },
+    {
+      "name": "VENOM | ВЕНОМ | ЯД",
+      "price": 15,
+      "image": "https://i.pinimg.com/564x/ee/3d/a7/ee3da79d4492e22fd31d3a535ed56fc9.jpg",
+      "id": 29
+    },
+    {
+      "name": "KITSUNE FRUIT | КИТСУН ФРУКТ | ЛИСА",
+      "price": 245,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8hICK4y9DXnjaHbvrbBKpstwJB8hvYt8L4A&s",
+      "id": 30
+    },
+    {
+      "name": "T-REX FRUIT | Т-РЕКС ФРУКТ | ДИНОЗАВР",
+      "price": 30,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsDdv5O-1FoZfolYVeaPHK5RdODjqfrIH-yg&s",
+      "id": 31
     }
   ],
   "pets-go": [
