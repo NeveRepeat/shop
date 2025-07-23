@@ -1,46 +1,10 @@
 {
   "pet-simulator-99": [
     {
-      "name": "Huge Frostbyte Griffin",
-      "price": 1.35,
-      "image": "https://1024terabox.com/s/1X15uNM_ydLN4yjDKjp9oiQ",
-      "id": 1
-    },
-    {
-      "name": "Huge Safari Monkey",
-      "price": 1.3,
-      "image": "https://1024terabox.com/s/1Wsvkcgax9NZoMMNQAOxmJw",
-      "id": 2
-    },
-    {
-      "name": "Huge Ninja Dalmatian",
-      "price": 1.2,
-      "image": "https://1024terabox.com/s/1cX21Y8-WTCTDakZTPzqelQ",
-      "id": 3
-    },
-    {
-      "name": "Huge Pixel Griffin",
-      "price": 1.25,
-      "image": "https://1024terabox.com/s/12URUqBuXSBAFA-W-cUJXnQ",
-      "id": 4
-    },
-    {
-      "name": "Huge Blurred Owl",
-      "price": 1.3,
-      "image": "https://1024terabox.com/s/1O2V5NRQgl79ggzq6QHXyEg",
-      "id": 5
-    },
-    {
       "name": "1m gems/1 миллион гемов",
       "price": 0.13,
       "image": "https://i.ebayimg.com/images/g/y0gAAOSwmDFketRf/s-l1600.jpg",
       "id": 6
-    },
-    {
-      "name": "Huge Pixel Goblin",
-      "price": 1.7,
-      "image": "https://static.wikia.nocookie.net/pet-simulator/images/6/60/PS99_Huge_Pixel_Goblin.png/revision/latest?cb=20250517182417",
-      "id": 7
     }
   ],
   "toilet-tower-defense": [
@@ -61,6 +25,12 @@
       "price": 270,
       "image": "https://ttdunitshop.ru/wp-content/uploads/2025/05/%D0%91%D0%B5%D0%B7-%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F1-1.png",
       "id": 10
+    },
+    {
+      "name": "EXECUTIONER SPEAKERMAN | ПАЛАЧ СПИКЕР | CELESTIAL",
+      "price": 270,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Z4UH4WgCsHHe7pftr7yTeDN463qCqX-Jhg&s",
+      "id": 11
     },
     {
       "name": "SIGNED OMEGA REACTOR OVERLORD #169",
