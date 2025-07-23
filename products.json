@@ -73,6 +73,36 @@
       "price": 2010,
       "image": "https://paparoblo.ru/wp-content/uploads/2023/05/nfr-dalm.jpg",
       "id": 45
+    },
+    {
+      "name": "R PARROT | РАЙД ПОПУГАЙ",
+      "price": 1870,
+      "image": "https://www.picclickimg.com/sB8AAOSw29FmMDDs/Parrot-Adopt-Me.webp",
+      "id": 46
+    },
+    {
+      "name": "MFR ICE GOLEM | МФР ЛЕДЯНОЙ ГОЛЕМ",
+      "price": 1420,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGHiYSFl1dSqaviHSHvyyNyjgNPSolYvb8Dw&s",
+      "id": 47
+    },
+    {
+      "name": "MFR GLORMY LEO | МФР ГЛОРМИ ЛЕО",
+      "price": 1370,
+      "image": "https://paparoblo.ru/wp-content/uploads/2024/09/FR-Glormy-Leo.png",
+      "id": 48
+    },
+    {
+      "name": "MFR HARE | МФР ЗАЯЦ",
+      "price": 1330,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZL5D7koKellKlAjJaQxl0kDJVevUr037NcQ&s",
+      "id": 49
+    },
+    {
+      "name": "FR BLAZING LION",
+      "price": 980,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJeHCHBhrcT9rAot68FJeb_vIo-B__X8TFXA&s",
+      "id": 50
     }
   ],
   "blox-fruits": [
