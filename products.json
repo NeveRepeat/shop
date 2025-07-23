@@ -1,1 +1,34 @@
-{}
+{
+  "pet-simulator-99": [
+    {
+      "name": "Huge Frostbyte Griffin",
+      "price": 1.35,
+      "image": "https://1024terabox.com/s/1X15uNM_ydLN4yjDKjp9oiQ",
+      "id": 1
+    },
+    {
+      "name": "Huge Safari Monkey",
+      "price": 1.3,
+      "image": "https://1024terabox.com/s/1Wsvkcgax9NZoMMNQAOxmJw",
+      "id": 2
+    },
+    {
+      "name": "Huge Ninja Dalmatian",
+      "price": 1.2,
+      "image": "https://1024terabox.com/s/1cX21Y8-WTCTDakZTPzqelQ",
+      "id": 3
+    },
+    {
+      "name": "Huge Pixel Griffin",
+      "price": 1.25,
+      "image": "https://1024terabox.com/s/12URUqBuXSBAFA-W-cUJXnQ",
+      "id": 4
+    },
+    {
+      "name": "Huge Blurred Owl",
+      "price": 1.3,
+      "image": "https://1024terabox.com/s/1O2V5NRQgl79ggzq6QHXyEg",
+      "id": 5
+    }
+  ]
+}
