@@ -157,6 +157,36 @@
       "price": 690,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN93Qeo5c1d3Y68tMU7A9WEBSnty1srob_kw&s",
       "id": 61
+    },
+    {
+      "name": "NFR MEERKAT | НФР СУРИКАТ",
+      "price": 460,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/03/57.png",
+      "id": 62
+    },
+    {
+      "name": "NFR BUSH ELEPHANT | НФР БУШ СЛОН",
+      "price": 450,
+      "image": "https://www.picclickimg.com/tsMAAeSwocxodqt5/NFR-Bush-Elephant-Neon-Fly-Ride-Adopt-From.webp",
+      "id": 63
+    },
+    {
+      "name": "MR GRAVE OWL | МР МОГИЛЬНАЯ СОВА",
+      "price": 195,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRotKc4HXpOSQZMoDNRmweWMHC1wwGSgNe1YA&s",
+      "id": 64
+    },
+    {
+      "name": "NFR T-REX | НФР Т-РЕКС",
+      "price": 175,
+      "image": "https://paparoblo.ru/wp-content/uploads/2023/10/nfr-trex.png",
+      "id": 65
+    },
+    {
+      "name": "NR SPINOSAURUS | НР СПИНОЗАВР",
+      "price": 175,
+      "image": "https://i.ebayimg.com/images/g/yW8AAOSwNFNmU8j7/s-l400.png",
+      "id": 66
     }
   ],
   "blox-fruits": [
